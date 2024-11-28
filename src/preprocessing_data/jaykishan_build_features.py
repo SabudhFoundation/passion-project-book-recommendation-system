@@ -6,7 +6,7 @@ from langdetect import detect
 from langdetect.lang_detect_exception import LangDetectException
 
 
-def build_fearures(df):
+def build_features(df):
     # Removing duplicates
     df.drop_duplicates(inplace=True)
 
