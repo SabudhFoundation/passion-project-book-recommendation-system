@@ -59,6 +59,30 @@ def build_features(df):
     df.drop_duplicates(subset='isbn', keep='first', inplace=True)
     df.drop_duplicates(subset='title', keep='first', inplace=True)
 
+    new_image_urls = []
+
+    # Function to adjust the image_url parameter
+    def new_image_url(image_url, book_id):
+
+        # Replacing m with i
+        p = image_url.rfind('/')
+        code = image_url[:p - 1] + 'i'
+        p = code.rfind('/')
+        code = code[p + 1:]
+
+        # Replacing the front
+        p = image_url.find('books')
+
+        fore = "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/"
+        new_url = fore + str(code) + '/' + str(book_id) + '.jpg'
+        return new_url
+
+    for i in range(len(df)):
+        temp = df.loc[i]
+        new_image_urls.append(new_image_url(temp['image_url'], temp['book_id']))
+
+    df['new_image_url'] = new_image_urls
+
     # Selecting all the relevant columns.
     data = df[['isbn', 'title', 'description', 'average_rating', 'language_code', 'image_url', 'authors']]
     # Save the csv file
