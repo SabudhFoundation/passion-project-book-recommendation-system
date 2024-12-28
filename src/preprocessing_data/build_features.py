@@ -1,1 +1,0 @@
-# all featuring engineering functions put in this script like remove stopwords, lemitization, translation and cleaning data
