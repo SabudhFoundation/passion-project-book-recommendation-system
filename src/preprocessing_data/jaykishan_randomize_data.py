@@ -1,9 +1,13 @@
 import pandas as pd
 import random
+import numpy as np
+
+import random
+np.random.seed(3)
 
 # This function will randomize assign books to 'num_users' users.
 def randomize_data(df):
-    num_users = 3000
+    num_users = 500
     users = [x for x in range(1, num_users + 1)]
     random.shuffle(users, )
 
@@ -13,7 +17,9 @@ def randomize_data(df):
 
     # split data into train and validation set
     train_df = df[df['user_id'].isin(users_train)]
-    validation_df = df[~df['user_id'].isin(users_train)]
+    validation_df = df[df['user_id'].isin(users_val)]
 
-    return train_df, validation_df
+    return users_train, users_val, train_df, validation_df
+
+
 
